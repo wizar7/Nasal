@@ -28,7 +28,7 @@ while(True):
     while bsec_data == None:
         bsec_data = get_data(bme)
     ct = datetime.datetime.now()
-    print(f'temperature={bsec_data["temperature"]}' + ' '  + f'pressure={bsec_data["raw_pressure"]}'+ ' '  + f'humidity={bsec_data["humidity"]}'+ ' '  + f'gas={bsec_data["raw_gas"]}',' '  + f'time={ct}\n')
+    print(f'temperature={bsec_data["temperature"]}' + ' '  + f'pressure={bsec_data["raw_pressure"]}'+ ' '  + f'humidity={bsec_data["humidity"]}'+ ' '  + f'gas={bsec_data["raw_gas"]}',' '  + f'time={ct}')
     
     
     temp = "{:.1%}".format(bsec_data["raw_temperature"])
