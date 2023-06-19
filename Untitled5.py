@@ -865,3 +865,40 @@ melody(name,1,1,1,1)
 
 
 
+import threading
+
+shared_variable1 = 0
+shared_variable2 = ""
+
+# 创建条件变量
+condition = threading.Condition()
+
+def writer_thread():
+    global shared_variable1, shared_variable2
+    while True:
+        with condition:
+            # 修改共享变量1
+            shared_variable1 += 1
+            # 修改共享变量2
+            shared_variable2 = "Updated"
+            # 通知其他线程
+            condition.notify()
+        # 其他操作
+
+def reader_thread():
+    global shared_variable1, shared_variable2
+    while True:
+        with condition:
+            # 等待条件满足
+            condition.wait()
+            # 读取共享变量1
+            print("共享变量1的值:", shared_variable1)
+            # 读取共享变量2
+            print("共享变量2的值:", shared_variable2)
+        # 其他操作
+
+# 创建并启动线程
+writer = threading.Thread(target=writer_thread)
+reader = threading.Thread(target=reader_thread)
+writer.start()
+reader.start()
