@@ -24,6 +24,7 @@ def main():
     print(bsec.BSEC_SAMPLE_RATE_LP)
 
     air_coffee = read_conf('/home/nasalimplant/Desktop/python_nasal/AIstudiio/2023_04_22_23_26_unnamed_HP-354_RDC-5-10.config')
+    # print(air_coffee)
     print(f'SET BSEC CONF {s.set_bsec_conf(air_coffee)}')
     print(f'SUBSCRIBE GAS ESTIMATES {s.subscribe_gas_estimates(4)}')
     print(f'INIT BME68X {s.init_bme68x()}')
@@ -33,6 +34,7 @@ def main():
     while (True):
         try:
             data = s.get_digital_nose_data()
+            #print(data)
         except Exception as e:
             print(e)
             main()
