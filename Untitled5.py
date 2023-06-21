@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[29]:
 
 
 #This code is for generate midi files by notes, which you just write them as symbols
@@ -161,7 +161,7 @@ import sys
 print(sys.version)
 
 
-# In[ ]:
+# In[3]:
 
 
 #Make a loop to generate all the midi files that we need(num=104)
@@ -185,7 +185,7 @@ def generate_melody(note_name, duration, number):
 
 notes = ['Ab', 'Bb', 'C', 'Eb', 'F', 'F#', 'G#', 'B', 'C#', 'E', 'D', 'E', 'G', 'A', 'C']  # Example notes
 durations = ['half', 'quarter']  # Example durations
-numbers = [1, 2, 3, 4]  # Numbers 1 to 4
+numbers = [5]  # Numbers 1 to 4
 
 num_outputs = len(notes) * len(durations) * len(numbers)  # Calculate the number of outputs
 
@@ -384,7 +384,7 @@ except KeyboardInterrupt:
     GPIO.cleanup()
 
 
-# In[2]:
+# In[30]:
 
 
 import pygame
@@ -452,7 +452,7 @@ def melody(flower, temperature, pressure, humidity, gas):
 melody(1, 1, 1, 1, 1)
 
 
-# In[12]:
+# In[66]:
 
 
 #current situation 20230530
@@ -462,6 +462,7 @@ import random
 list1 = ['G#1','E2' ,'G#2' ,'B2', 'G#2','E3' ,'G#3' ,'B3', 'G#3','E4' ,'G#4' ,'B4', 'G#4' ] # temperature for LILY
 list2 = [ 'E1','G#2', 'E2','G#2', 'E2','G#3', 'E3', 'G#3', 'E3','G#4', 'E4', 'G#4', 'E4'] # pressure for LILY
 list3 = [ 'C#1','B2', 'C#2','B2', 'C#2', 'E3', 'C#3','B3', 'C#3','B4', 'C#4', 'E4', 'C#4'] # humidity for LILY
+
 
 list5 = ['Ab', 'Bb', 'C', 'Eb', 'F']  # Ab pentatonic scale for ROSE
 list6 = [ 'B1', 'C#2','E2', 'F#2', 'G#2', 'B3', 'C#3','E3', 'F#3', 'G#4', 'B4', 'C#4','E4']  # E pentatonic scale for LILY
@@ -597,10 +598,10 @@ def melody(flower, temperature, pressure, humidity, gas):
 melody(1, 1, 1, 1, 1)
 
 
-# In[123]:
+# In[9]:
 
 
-previous_value=0
+--previous_value=0
 def is_increasing(current_value):
     global previous_value
     if previous_value is not None and current_value > previous_value:
@@ -646,6 +647,8 @@ ax.plot(angles,flower, 'o--', color='g', label='Flower')
 ax.fill(angles, flower, alpha=0.25, color='g')
 #Add labels
 ax.set_thetagrids(angles * 180/np.pi, subjects)
+plt.figtext(1, 1, 'rose', fontsize=14, ha='center')
+
 plt.grid(True)
 plt.tight_layout()
 plt.legend()
@@ -655,60 +658,214 @@ window=tk.Tk()
 greeting = tk.Label(text="Hello, Tkinter")
 
 
-# In[ ]:
+# In[5]:
 
 
-import tkinter as tk
-from threading import Thread
-from queue import Queue
+#current situation 20230619
+#version description: same column
+#comments:too dull
 
-def read_data(queue):
-    # 模拟实时获取数据的函数
-    # 这里使用随机数生成一个示例数据
-    import random
-    while True:
-        data = random.randint(1, 100)
-        queue.put(data)
+import pygame 
+import random
+    
+def melody(flower, temperature, pressure, humidity, gas):
+        global position
+        position=6
+        # Initialize pygame
+        pygame.init()
+        pygame.mixer.init()
 
-def display_data(queue):
-    def update_label():
-        # 更新标签的函数
-        if not queue.empty():
-            data = queue.get()
-            data_label.config(text="Data: {}".format(data))
-        data_label.after(100, update_label)
+        # Define the number of channels to use
+        num_channels = 4
 
-    # 创建GUI窗口
-    window = tk.Tk()
-    window.title("Real-time Data Display")
+        # Reserve the specified number of channels
+        pygame.mixer.set_num_channels(num_channels)
 
-    # 创建标签
-    data_label = tk.Label(window, text="Data: ")
-    data_label.pack()
+        while True:
+                temperature=random.uniform(20,30)
+                humidity=random.uniform(20,30)
+                pressure=random.uniform(20,30)
+                gas=random.uniform(20,30)
+            
+                position+=1
+            
+                if(position>12 or position<0):
+                    position=6
+                
+                if flower == 'Lily':
+                    list1 = ['G#2','E3' ,'G#3' ,'B3', 'G#3','E4' ,'G#4' ,'B4', 'G#4','E5' ,'G#5' ,'B5', 'G#5' ] # temperature for LILY
+                    list2 = [ 'E2','G#3', 'E3','G#3', 'E3','G#4', 'E4', 'G#4', 'E4','G#5', 'E5', 'G#5', 'E5'] # pressure for LILY
+                    list3 = [ 'C#2','B3', 'C#3','B3', 'C#3', 'E4', 'C#4','B4', 'C#4','B5', 'C#5', 'E5', 'C#5'] # humidity for LILY
+                    list4 = [ 'B2', 'C#3','E3', 'F#3', 'G#3', 'B4', 'C#4','E4', 'F#4', 'G#5', 'B5', 'C#5','E5']  # E pentatonic scale for LILY
+                elif flower == 'Margaret':
+                    list1 = ['C4','A3','C4','A3','E4','C5','A4','G4','C4','D4','E4','C4','G3' ] # temperature for Margaret
+                    list2 = ['E4','D4','G3','D3','A4','G4','E4','D4','E3','A3','D3','G3','C3'] # pressure for Margaret
+                    list3 = ['G4','A4','E3','C4','G3','D4','C4','G3','G4','C5','G3','E3','C4'] # humidity for Margaret
+                    list4 = ['A2','C3','D3', 'E3', 'G3', 'A3', 'C4', 'D4', 'E4', 'G4', 'A4','C5','D5']  # C pentatonic scale for Margaretprevious_value1=0
+                elif flower == 'Rose':
+                    list1 = ['Ab3','Bb3' ,'Bb4' ,'Ab4', 'Eb4','C3' ,'Eb3' ,'C4', 'Eb4','C4' ,'Eb3' ,'C3', 'F4' ] # temperature for ROSE
+                    list2 = ['F3', 'Eb4', 'F4', 'Eb4', 'C4', 'Ab3', 'Bb3', 'F3', 'Bb3', 'F4', 'C4', 'Ab3', 'F3'] # pressure for ROSE
+                    list3 = [ 'C4','F3','C4','F4','Bb3','C4','C3','Ab3','F3','Ab3','Bb3','Eb3','Ab4'] # humidity for ROSE
+                    list4 = ['F2','Ab3', 'Bb3', 'C3',  'Eb3', 'F3', 'Ab4', 'Bb4', 'C4', 'Eb4', 'F4', 'Ab5','Bb5']  # Ab pentatonic scale for ROSE
+                    
+                '''if flower == 'Lily':
+                    list1 = ['G#1','E2' ,'G#2' ,'B2', 'G#2','E3' ,'G#3' ,'B3', 'G#3','E4' ,'G#4' ,'B4', 'G#4' ] # temperature for LILY
+                    list2 = [ 'E1','G#2', 'E2','G#2', 'E2','G#3', 'E3', 'G#3', 'E3','G#4', 'E4', 'G#4', 'E4'] # pressure for LILY
+                    list3 = [ 'C#1','B2', 'C#2','B2', 'C#2', 'E3', 'C#3','B3', 'C#3','B4', 'C#4', 'E4', 'C#4'] # humidity for LILY
+                   
+                elif flower == 'Margaret':
+                    list1 = ['C3','A2','C3','A2','E3','C4','A3','G3','C3','D3','E3','C3','G2' ] # temperature for Margaret
+                    list2 = ['E3','D3','G2','D2','A3','G3','E3','D3','E2','A2','D2','G2','C2'] # pressure for Margaret
+                    list3 = ['G3','A3','E2','C3','G2','D3','C3','G2','G3','C4','G2','E2','C3'] # humidity for Margaret
+                elif flower == 'Rose':   
+                    list1 = ['Ab2','Bb2' ,'Bb3' ,'Ab3', 'Eb3','C2' ,'Eb2' ,'C3', 'Eb3','C3' ,'Eb2' ,'C2', 'F3' ] # temperature for ROSE
+                    list2 = ['F2', 'Eb3', 'F3', 'Eb3', 'C3', 'Ab2', 'Bb2', 'F2', 'Bb2', 'F3', 'C3', 'Ab2', 'F2'] # pressure for ROSE
+                    list3 = [ 'C3','F2','C3','F3','Bb2','C3','C2','Ab2','F2','Ab2','Bb2','Eb2','Ab3'] # humidity for ROSE
+                    '''    
+                
+                note1 = list1[position]+ "-half.wav"
+                note2 = list2[position]+ "-half.wav"
+                note3 = list3[position]+ "-half.wav"
+                    
+                # Define a list of music files to play on different channels
+                music_files = [note1,note2,note3]
+                print(music_files)
+                # Loop through the music files
+            
+                channel = pygame.mixer.Channel(0)  # Get the channel corresponding to the index
+                # Load and play the music file on the channel
+                sound = pygame.mixer.Sound(music_files[0])
+                channel.play(sound)
+            
+                channel = pygame.mixer.Channel(1)  # Get the channel corresponding to the index
+                # Load and play the music file on the channel
+                sound = pygame.mixer.Sound(music_files[1])
+                channel.play(sound)
+            
+                channel = pygame.mixer.Channel(2)  # Get the channel corresponding to the index
+                # Load and play the music file on the channel
+                sound = pygame.mixer.Sound(music_files[2])
+                channel.play(sound)
 
-    # 更新标签
-    update_label()
+                # Delay before starting the next iteration
+                pygame.time.wait(500)  # Adjust the delay time as needed
 
-    # 运行GUI主循环
-    window.mainloop()
+                # Stop all channels to prepare for the next iteration
+                pygame.mixer.stop()
 
-if __name__ == '__main__':
-    # 创建线程间通信的队列
-    queue = Queue()
+                # Quit pygame
+                #pygame.quit()
 
-    # 创建读取数据的线程
-    read_thread = Thread(target=read_data, args=(queue,))
-    read_thread.start()
-
-    # 创建显示数据的GUI程序
-    display_data(queue)
-
-    # 等待读取数据的线程结束
-    read_thread.join()
+name = 'Lily'
+print(name+':\nonly 3 channels,playing the same column')
+melody(name,1,1,1,1)
+#melody(name, random.randint(0,100), random.randint(0,100), random.randint(0,100),random.randint(0,100))
 
 
-# In[ ]:
+# In[17]:
 
+
+#current situation 20230619
+#Random picking notes from each list
+#comments: 
+
+import pygame 
+import random
+    
+def melody(flower, temperature, pressure, humidity, gas):
+        global h,i,j,k
+        # Initialize pygame
+        pygame.init()
+        pygame.mixer.init()
+
+        # Define the number of channels to use
+        num_channels = 4
+
+        # Reserve the specified number of channels
+        pygame.mixer.set_num_channels(num_channels)
+
+        while True:
+                temperature=random.uniform(20,30)
+                humidity=random.uniform(20,30)
+                pressure=random.uniform(20,30)
+                gas=random.uniform(20,30)
+            
+                h=random.randint(0,14)
+                i=random.randint(0,14)
+                j=random.randint(0,14)
+                k=random.randint(0,14)
+            
+                if flower == 'Lily':
+                    list1 = ['G#2','E3' ,'G#3' ,'B3', 'G#3','E4' ,'G#4' ,'B4', 'G#4','E5' ,'G#5' ,'B5', 'G#5' ] # temperature for LILY
+                    list2 = [ 'E2','G#3', 'E3','G#3', 'E3','G#4', 'E4', 'G#4', 'E4','G#5', 'E5', 'G#5', 'E5'] # pressure for LILY
+                    list3 = [ 'C#2','B3', 'C#3','B3', 'C#3', 'E4', 'C#4','B4', 'C#4','B5', 'C#5', 'E5', 'C#5'] # humidity for LILY
+                    list4 = [ 'B2', 'C#3','E3', 'F#3', 'G#3', 'B4', 'C#4','E4', 'F#4', 'G#5', 'B5', 'C#5','E5']  # E pentatonic scale for LILY
+                elif flower == 'Margaret':
+                    list1 = ['C4','A3','C4','A3','E4','C5','A4','G4','C4','D4','E4','C4','G3' ] # temperature for Margaret
+                    list2 = ['E4','D4','G3','D3','A4','G4','E4','D4','E3','A3','D3','G3','C3'] # pressure for Margaret
+                    list3 = ['G4','A4','E3','C4','G3','D4','C4','G3','G4','C5','G3','E3','C4'] # humidity for Margaret
+                    list4 = ['A2','C3','D3', 'E3', 'G3', 'A3', 'C4', 'D4', 'E4', 'G4', 'A4','C5','D5']  # C pentatonic scale for Margaretprevious_value1=0
+                elif flower == 'Rose':
+                    list1 = ['Ab3','Bb3' ,'Bb4' ,'Ab4', 'Eb4','C3' ,'Eb3' ,'C4', 'Eb4','C4' ,'Eb3' ,'C3', 'F4' ] # temperature for ROSE
+                    list2 = ['F3', 'Eb4', 'F4', 'Eb4', 'C4', 'Ab3', 'Bb3', 'F3', 'Bb3', 'F4', 'C4', 'Ab3', 'F3'] # pressure for ROSE
+                    list3 = [ 'C4','F3','C4','F4','Bb3','C4','C3','Ab3','F3','Ab3','Bb3','Eb3','Ab4'] # humidity for ROSE
+                    list4 = ['F2','Ab3', 'Bb3', 'C3',  'Eb3', 'F3', 'Ab4', 'Bb4', 'C4', 'Eb4', 'F4', 'Ab5','Bb5']  # Ab pentatonic scale for ROSE
+                    
+                '''if flower == 'Lily':
+                    list1 = ['G#1','E2' ,'G#2' ,'B2', 'G#2','E3' ,'G#3' ,'B3', 'G#3','E4' ,'G#4' ,'B4', 'G#4' ] # temperature for LILY
+                    list4 = [ 'B1', 'C#2','E2', 'F#2', 'G#2', 'B3', 'C#3','E3', 'F#3', 'G#4', 'B4', 'C#4','E4']  # E pentatonic scale for LILY
+                elif flower == 'Margaret':
+                    list1 = ['C3','A2','C3','A2','E3','C4','A3','G3','C3','D3','E3','C3','G2' ] # temperature for Margaret
+                    list4 = ['A1','C2','D2', 'E2', 'G2', 'A2', 'C3', 'D3', 'E3', 'G3', 'A3','C4','D4']  # C pentatonic scale for Margaretprevious_value1=0
+                elif flower == 'Rose':
+                    list1 = ['Ab2','Bb2','C2','EB2', 'F2', 'Ab3', 'Bb3', 'C3', 'Eb3', 'F3', 'Ab4', 'Bb4', 'C4',  'EB4', 'F4' ] # temperature for ROSE
+                    list4 = ['Ab2','Bb2','C2','EB2', 'F2', 'Ab3', 'Bb3', 'C3', 'Eb3', 'F3', 'Ab4', 'Bb4', 'C4',  'EB4', 'F4' ]  # Ab pentatonic scale for ROSE
+                '''
+                note4 = list4[k]+ "-quarter.wav"  # for gas
+                note1 = list1[i]+ "-half.wav"
+                note2 = list1[j]+ "-half.wav"
+                note3 = list1[h]+ "-half.wav"
+                    
+                # Define a list of music files to play on different channels
+                music_files = [note1,note2,note3]
+                print(music_files)
+                # Loop through the music files
+
+                channel = pygame.mixer.Channel(0)  # Get the channel corresponding to the index
+                # Load and play the music file on the channel
+                sound = pygame.mixer.Sound(music_files[0])
+                channel.play(sound)
+            
+                channel = pygame.mixer.Channel(1)  # Get the channel corresponding to the index
+                # Load and play the music file on the channel
+                sound = pygame.mixer.Sound(music_files[1])
+                channel.play(sound)
+            
+                channel = pygame.mixer.Channel(2)  # Get the channel corresponding to the index
+                # Load and play the music file on the channel
+                sound = pygame.mixer.Sound(music_files[2])
+                channel.play(sound)
+            
+                #channel = pygame.mixer.Channel(3)  # Get the channel corresponding to the index
+                # Load and play the music file on the channel
+                #sound = pygame.mixer.Sound(music_files[3])
+                #channel.play(sound)
+
+                # Delay before starting the next iteration
+                pygame.time.wait(500)  # Adjust the delay time as needed
+
+                # Stop all channels to prepare for the next iteration
+                pygame.mixer.stop()
+
+                # Quit pygame
+                #pygame.quit()
+
+name = 'Rose'
+print(name +':\n4 channels,random picking note from the list')
+melody(name,1,1,1,1)
+
+
+# In[10]:
 
 
 #current situation 20230619
@@ -802,20 +959,20 @@ def melody(flower, temperature, pressure, humidity, gas):
                     i=6
                     
                 if flower == 'Lily':
-                    list1 = ['G#1','E2' ,'G#2' ,'B2', 'G#2','E3' ,'G#3' ,'B3', 'G#3','E4' ,'G#4' ,'B4', 'G#4' ] # temperature for LILY
-                    list2 = [ 'E1','G#2', 'E2','G#2', 'E2','G#3', 'E3', 'G#3', 'E3','G#4', 'E4', 'G#4', 'E4'] # pressure for LILY
-                    list3 = [ 'C#1','B2', 'C#2','B2', 'C#2', 'E3', 'C#3','B3', 'C#3','B4', 'C#4', 'E4', 'C#4'] # humidity for LILY
-                    list4 = [ 'B1', 'C#2','E2', 'F#2', 'G#2', 'B3', 'C#3','E3', 'F#3', 'G#4', 'B4', 'C#4','E4']  # E pentatonic scale for LILY
+                    list1 = ['G#2','E3' ,'G#3' ,'B3', 'G#3','E4' ,'G#4' ,'B4', 'G#4','E5' ,'G#5' ,'B5', 'G#5' ] # temperature for LILY
+                    list2 = [ 'E2','G#3', 'E3','G#3', 'E3','G#4', 'E4', 'G#4', 'E4','G#5', 'E5', 'G#5', 'E5'] # pressure for LILY
+                    list3 = [ 'C#2','B3', 'C#3','B3', 'C#3', 'E4', 'C#4','B4', 'C#4','B5', 'C#5', 'E5', 'C#5'] # humidity for LILY
+                    list4 = [ 'B2', 'C#3','E3', 'F#3', 'G#3', 'B4', 'C#4','E4', 'F#4', 'G#5', 'B5', 'C#5','E5']  # E pentatonic scale for LILY
                 elif flower == 'Margaret':
-                    list1 = ['C3','A2','C3','A2','E3','C4','A3','G3','C3','D3','E3','C3','G2' ] # temperature for Margaret
-                    list2 = ['E3','D3','G2','D2','A3','G3','E3','D3','E2','A2','D2','G2','C2'] # pressure for Margaret
-                    list3 = ['G3','A3','E2','C3','G2','D3','C3','G2','G3','C4','G2','E2','C3'] # humidity for Margaret
-                    list4 = ['A1','C2','D2', 'E2', 'G2', 'A2', 'C3', 'D3', 'E3', 'G3', 'A3','C4','D4']  # C pentatonic scale for Margaretprevious_value1=0
+                    list1 = ['C4','A3','C4','A3','E4','C5','A4','G4','C4','D4','E4','C4','G3' ] # temperature for Margaret
+                    list2 = ['E4','D4','G3','D3','A4','G4','E4','D4','E3','A3','D3','G3','C3'] # pressure for Margaret
+                    list3 = ['G4','A4','E3','C4','G3','D4','C4','G3','G4','C5','G3','E3','C4'] # humidity for Margaret
+                    list4 = ['A2','C3','D3', 'E3', 'G3', 'A3', 'C4', 'D4', 'E4', 'G4', 'A4','C5','D5']  # C pentatonic scale for Margaretprevious_value1=0
                 elif flower == 'Rose':
-                    list1 = ['Ab2','Bb2' ,'Bb3' ,'Ab3', 'Eb3','C2' ,'Eb2' ,'C3', 'Eb3','C3' ,'Eb2' ,'C2', 'F3' ] # temperature for ROSE
-                    list2 = ['F2', 'Eb3', 'F3', 'Eb3', 'C3', 'Ab2', 'Bb2', 'F2', 'Bb2', 'F3', 'C3', 'Ab2', 'F2'] # pressure for ROSE
-                    list3 = [ 'C3','F2','C3','F3','Bb2','C3','C2','Ab2','F2','Ab2','Bb2','Eb2','Ab3'] # humidity for ROSE
-                    list4 = ['F1','Ab2', 'Bb2', 'C2',  'Eb2', 'F2', 'Ab3', 'Bb3', 'C3', 'Eb3', 'F3', 'Ab4','Bb4']  # Ab pentatonic scale for ROSE
+                    list1 = ['Ab3','Bb3' ,'Bb4' ,'Ab4', 'Eb4','C3' ,'Eb3' ,'C4', 'Eb4','C4' ,'Eb3' ,'C3', 'F4' ] # temperature for ROSE
+                    list2 = ['F3', 'Eb4', 'F4', 'Eb4', 'C4', 'Ab3', 'Bb3', 'F3', 'Bb3', 'F4', 'C4', 'Ab3', 'F3'] # pressure for ROSE
+                    list3 = [ 'C4','F3','C4','F4','Bb3','C4','C3','Ab3','F3','Ab3','Bb3','Eb3','Ab4'] # humidity for ROSE
+                    list4 = ['F2','Ab3', 'Bb3', 'C3',  'Eb3', 'F3', 'Ab4', 'Bb4', 'C4', 'Eb4', 'F4', 'Ab5','Bb5']  # Ab pentatonic scale for ROSE
                 
                 note4 = list4[k]+ "-quarter.wav"  # for gas
                 note1 = list1[i]+ "-half.wav"
@@ -859,46 +1016,26 @@ previous_value1=0
 previous_value2=0
 previous_value3=0
 previous_value4=0
-name = 'Rose'
+name = 'Margaret'
 print(name+ ": \n 4 channels, moving one step at a time")
 melody(name,1,1,1,1)
 
 
+# In[13]:
 
-import threading
 
-shared_variable1 = 0
-shared_variable2 = ""
+list4 = ['Ab2','Bb2','C2','EB2', 'F2', 'Ab3', 'Bb3', 'C3', 'Eb3', 'F3', 'Ab4', 'Bb4', 'C4',  'EB4', 'F4' ] 
+len(list4)
 
-# 创建条件变量
-condition = threading.Condition()
 
-def writer_thread():
-    global shared_variable1, shared_variable2
-    while True:
-        with condition:
-            # 修改共享变量1
-            shared_variable1 += 1
-            # 修改共享变量2
-            shared_variable2 = "Updated"
-            # 通知其他线程
-            condition.notify()
-        # 其他操作
+# In[7]:
 
-def reader_thread():
-    global shared_variable1, shared_variable2
-    while True:
-        with condition:
-            # 等待条件满足
-            condition.wait()
-            # 读取共享变量1
-            print("共享变量1的值:", shared_variable1)
-            # 读取共享变量2
-            print("共享变量2的值:", shared_variable2)
-        # 其他操作
 
-# 创建并启动线程
-writer = threading.Thread(target=writer_thread)
-reader = threading.Thread(target=reader_thread)
-writer.start()
-reader.start()
+
+
+
+# In[ ]:
+
+
+
+
