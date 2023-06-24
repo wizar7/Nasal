@@ -1078,3 +1078,18 @@ while (i<10):
 
 
 
+if flower == 'Lily':
+                    list1 = ['G#2','E3' ,'G#3' ,'B3', 'G#3','E4' ,'G#4' ,'B4', 'G#4','E5' ,'G#5' ,'B5', 'G#5' ] # temperature for LILY
+                    list2 = [ 'E2','G#3', 'E3','G#3', 'E3','G#4', 'E4', 'G#4', 'E4','G#5', 'E5', 'G#5', 'E5'] # pressure for LILY
+                    list3 = [ 'C#2','B3', 'C#3','B3', 'C#3', 'E4', 'C#4','B4', 'C#4','B5', 'C#5', 'E5', 'C#5'] # humidity for LILY
+                    list4 = [ 'B2', 'C#3','E3', 'F#3', 'G#3', 'B4', 'C#4','E4', 'F#4', 'G#5', 'B5', 'C#5','E5']  # E pentatonic scale for LILY
+                elif flower == 'Margaret':
+                    list1 = ['C4','A3','C4','A3','E4','C5','A4','G4','C4','D4','E4','C4','G3' ] # temperature for Margaret
+                    list2 = ['E4','D4','G3','D3','A4','G4','E4','D4','E3','A3','D3','G3','C3'] # pressure for Margaret
+                    list3 = ['G4','A4','E3','C4','G3','D4','C4','G3','G4','C5','G3','E3','C4'] # humidity for Margaret
+                    list4 = ['A2','C3','D3', 'E3', 'G3', 'A3', 'C4', 'D4', 'E4', 'G4', 'A4','C5','D5']  # C pentatonic scale for Margaretprevious_value1=0
+                elif flower == 'Rose':
+                    list1 = ['Ab3','Bb3' ,'Bb4' ,'Ab4', 'Eb4','C3' ,'Eb3' ,'C4', 'Eb4','C4' ,'Eb3' ,'C3', 'F4' ] # temperature for ROSE
+                    list2 = ['F3', 'Eb4', 'F4', 'Eb4', 'C4', 'Ab3', 'Bb3', 'F3', 'Bb3', 'F4', 'C4', 'Ab3', 'F3'] # pressure for ROSE
+                    list3 = [ 'C4','F3','C4','F4','Bb3','C4','C3','Ab3','F3','Ab3','Bb3','Eb3','Ab4'] # humidity for ROSE
+                    list4 = ['F2','Ab3', 'Bb3', 'C3',  'Eb3', 'F3', 'Ab4', 'Bb4', 'C4', 'Eb4', 'F4', 'Ab5','Bb5']  # Ab pe
