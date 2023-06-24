@@ -1036,6 +1036,45 @@ len(list4)
 
 # In[ ]:
 
+import random
+def extract_array(arr, start, m):
+    if m == 0:
+        # 只取出 start 这一位的数
+        extracted = [arr[start]]
+    else:
+        # 计算起始位置和结束位置
+        end = start + m
+
+        # 如果结束位置超过数组长度，调整为数组末尾的索引
+        if end > len(arr):
+            end = end % len(arr)
+
+        # 如果 m 是负数，向前取绝对值为 m 的元素个数
+        if m < 0:
+            extracted = arr[end:start]
+        else:
+            # 提取部分数组
+            if end > start:
+                extracted = arr[start:end]
+            else:
+                extracted = arr[start:] + arr[:end]
+
+    return extracted
+
+# 示例数组
+array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+
+# 起始位置和要取的元素个数
+start = 7
+i=0
+while (i<10):
+    m = random.randint(-4,4)
+    i+=1
+    # 调用函数提取数组
+    extracted_array = extract_array(array, start, m)
+    start+=m
+    print(str(m)+str(extracted_array))
+
 
 
 
