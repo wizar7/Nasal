@@ -30,7 +30,6 @@ while(True):
     ct = datetime.datetime.now()
     print(f'temperature={bsec_data["temperature"]}' + ' '  + f'pressure={bsec_data["raw_pressure"]}'+ ' '  + f'humidity={bsec_data["humidity"]}'+ ' '  + f'gas={bsec_data["raw_gas"]}',' '  + f'time={ct}')
     
-    
     temp = "{:.1%}".format(bsec_data["raw_temperature"])
     pressure = " {:.1%}".format(bsec_data["raw_pressure"])
     humidity = " {:.1%}".format(bsec_data["humidity"])

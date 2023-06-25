@@ -5,17 +5,12 @@ import bsecConstants as bsec
 import json
 import datetime
 
-
-            
-
-
 # Definition of the variables
 def read_conf(path: str):
     with open(path, 'rb') as conf_file:
         conf = [int.from_bytes(bytes([b]), 'little') for b in conf_file.read()]
         conf = conf[4:]
     return conf
-
 
 # Calling the test algorithm
 def main():

@@ -1,5 +1,5 @@
-#current situation 20230619
-import pygame 
+›#current situation 20230619
+import pygame ›
 import random
 
 def is_increasing(current_value,parameter):
@@ -47,9 +47,7 @@ def is_increasing(current_value,parameter):
             else:
                 previous_value4=current_value
                 return 0
-
-    
-    
+ 
 def melody(flower, temperature, pressure, humidity, gas):
         global h,i,j,k
         j=9

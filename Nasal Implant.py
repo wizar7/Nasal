@@ -110,23 +110,25 @@ def Flower():
 def display_data(queue):
     global flower_name
     def update_label():
-        # 更新标签的函数
+        # update function
         if not queue.empty():
             data = queue.get()
             text1.delete("1.0",tk.END)
-            text1.insert(tk.END,"Temperature is : {} degC".format(data['temp']))
+            text1.insert(tk.END,"Temperature is : {} degC"
+                         .format(data['temp']))
             text2.delete("1.0",tk.END)
-            text2.insert(tk.END,"Air pressure is : {} hPa".format(data['pressure']))
+            text2.insert(tk.END,"Air pressure is : {} hPa"
+                         .format(data['pressure']))
             text3.delete("1.0",tk.END)
-            text3.insert(tk.END,"Humidity is : {} %".format(data['humidity']))
+            text3.insert(tk.END,"Humidity is : {} %"
+                         .format(data['humidity']))
             text4.delete("1.0",tk.END)
-            text4.insert(tk.END,"Gas resistance is : {} kOhm".format(data['gas']))
-        
+            text4.insert(tk.END,"Gas resistance is : {} kOhm"
+                         .format(data['gas']))
         window.after(10, update_label)
 
-    # 创建GUI窗口
+    # Establish GUI window
     window = tk.Tk()
-    #window.title("Real-time Data Display")
     window.title("Smell detected:    "+flower_name)
 
     # Extablish text controler and text content
@@ -147,11 +149,9 @@ def display_data(queue):
     text3.pack()
     text4.pack()
 
-    # 更新标签
+    # update label
     update_label()
-    
-
-    # 运行GUI主循环
+    # GUI in loop
     window.mainloop()
     
     

@@ -214,10 +214,6 @@ def play_music(queue):
         m=is_increasing(float(data['humidity']),float(data['pressure']),float(data['temp']),float(data['gas']))# n is in the range of -4 to +4
         print("m="+str(m))
         
-        list1 = ['G#1','E2' ,'G#2' ,'B2', 'G#2','E3' ,'G#3' ,'B3', 'G#3','E4' ,'G#4' ,'B4', 'G#4' ] 
-        list2 = [ 'E1','G#2', 'E2','G#2', 'E2','G#3', 'E3', 'G#3', 'E3','G#4', 'E4', 'G#4', 'E4'] 
-        list3 = [ 'C#1','B2', 'C#2','B2', 'C#2', 'E3', 'C#3','B3', 'C#3','B4', 'C#4', 'E4', 'C#4'] 
-        
         if flower_name == 'Lily':# E pentatonic scale for LILY
             list1 = ['G#2','E3' ,'G#3' ,'B3', 'G#3','E4' ,'G#4' ,'B4', 'G#4','E5' ,'G#5' ,'B5', 'G#5' ] 
             list2 = [ 'E2','G#3', 'E3','G#3', 'E3','G#4', 'E4', 'G#4', 'E4','G#5', 'E5', 'G#5', 'E5'] 
@@ -297,7 +293,7 @@ def flowerDetecting():
     global air,rose,lily,margaret,flower_name
     s = BME68X(cnst.BME68X_I2C_ADDR_HIGH, 0)
     s.set_sample_rate(bsec.BSEC_SAMPLE_RATE_LP)
-    air_coffee = read_conf('/home/nasalimplant/Desktop/python_nasal/AIstudiio/2023_04_22_23_26_unnamed_HP-354_RDC-5-10.config')
+    air_coffee = read_conf('/home/nasalimplant/Desktop/python_nasal/AIstudiio/2023_06_25_08_52_withair_HP-301_RDC-1-0Continuous.config')
     # print(air_coffee)
     print(f'SET BSEC CONF {s.set_bsec_conf(air_coffee)}')
     print(f'SUBSCRIBE GAS ESTIMATES {s.subscribe_gas_estimates(4)}')
